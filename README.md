@@ -23,9 +23,9 @@
        
   3. springboot项目看这里(主要为springboot项目设计,使用最简单)
        
-       在启动类加入注解
+         在启动类加入注解
        
-       @EnableLadderRedis
+         @EnableLadderRedis
 
 4. spring项目看这里
 
