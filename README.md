@@ -9,16 +9,16 @@
 ## 使用
 1. 下载项目到本地,可以选择安装到环境私服中.
 2. 基于maven构建, 在pom文件中引入
+
+       <dependency>
  
- `<dependency>`  
- 
-    <groupId>com.murphy.edu</groupId>  
+         <groupId>com.murphy.edu</groupId>  
     
-    <artifactId>ladder-redis</artifactId>   
+         <artifactId>ladder-redis</artifactId>   
     
-    <version>1.0.0.RELEASE</version>    
+         <version>1.0.0.RELEASE</version>    
  
-  `</dependency>`  
+       </dependency>
   
   
    
