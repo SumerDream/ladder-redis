@@ -17,7 +17,7 @@
          <version>1.0.0.RELEASE</version>    
        </dependency>
        
-3. spring项目看这里(主要为spring项目设计, 使用最简单)
+3. spring项目看这里(主要为spring项目设计)
        
          1) 在启动类加入注解
          @EnableLadderRedis
@@ -242,3 +242,13 @@
 - 运行
 
 ![运行](https://github.com/SumerDream/resources/blob/master/%E8%BF%90%E8%A1%8C.jpg)
+
+## 普通Java项目最佳实践
+
+- 添加属性文件
+
+![运行](https://github.com/SumerDream/resources/blob/master/%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6.jpg)
+
+- 运行
+
+![运行](https://github.com/SumerDream/resources/blob/master/%E6%99%AE%E9%80%9A%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C.jpg)
