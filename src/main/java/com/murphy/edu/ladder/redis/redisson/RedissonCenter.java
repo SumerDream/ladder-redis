@@ -54,8 +54,8 @@ public class RedissonCenter {
         ResourceBundle resource;
 
         if (RedissonConfigLocation.getConfigLocation() == null) {
-            log.info("-----redisson读取默认配置文件classpath:redisson.properties-----");
-            resource = ResourceBundle.getBundle("redisson");
+            log.info("-----redisson读取默认配置文件classpath:redis.properties-----");
+            resource = ResourceBundle.getBundle("redis");
         } else {
             log.info("-----redisson读取指定配置文件" + RedissonConfigLocation.getConfigLocation() + ".properties -----");
             resource = ResourceBundle.getBundle(RedissonConfigLocation.getConfigLocation());

@@ -48,8 +48,8 @@ public class JedisCenter {
     private static void initConfig() {
         ResourceBundle resource;
         if (JedisConfigLocation.getConfigLocation() == null) {
-            log.info("-----jedis读取默认配置文件classpath:jedis.properties-----");
-            resource = ResourceBundle.getBundle("jedis");
+            log.info("-----jedis读取默认配置文件classpath:redis.properties-----");
+            resource = ResourceBundle.getBundle("redis");
         } else {
             log.info("-----jedis读取指定配置文件" + JedisConfigLocation.getConfigLocation() + ".properties -----");
             resource = ResourceBundle.getBundle(JedisConfigLocation.getConfigLocation());
