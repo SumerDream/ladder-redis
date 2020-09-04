@@ -8,6 +8,7 @@
 基于原生jedis 2.9.0以及原生redisson3.11.1封装, 实现了开发中常用的redis操作,以及分布式锁(基于lua脚本), redisson工具中还有GEO相关api.
 ## 使用
 1. 下载项目到本地,可以选择安装到环境私服中.
+
 2. 基于maven构建, 在pom文件中引入
 
        <dependency>
@@ -19,7 +20,15 @@
          <version>1.0.0.RELEASE</version>    
  
        </dependency>
-  
-  
+       
+  3. springboot项目看这里(主要为springboot项目设计,使用最简单)
+       
+       在启动类加入注解
+       
+       @EnableLadderRedis
+
+4. spring项目看这里
+
+5. 传统Java项目看这里
    
   
