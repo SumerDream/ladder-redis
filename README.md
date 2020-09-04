@@ -225,3 +225,20 @@
 ## 说明
        - 普通Java项目配置和spring项目配置其实是一样的,不同的就是spring项目配置有统一的前缀  ladder. 其他并无区别.
        - 有些配置给了默认值, 你可以使用默认值或者你也可以根据实际情况配置合适的参数.
+## spring项目最佳实践
+
+- 基于maven构建, pom文件添加依赖
+
+![依赖](https://github.com/SumerDream/resources/blob/master/%E4%BE%9D%E8%B5%96%E5%AF%BC%E5%85%A5.jpg)
+
+- 启动类添加注解
+
+![注解](https://github.com/SumerDream/resources/blob/master/%E5%90%AF%E5%8A%A8%E7%B1%BB%E5%A2%9E%E5%8A%A0%E6%B3%A8%E8%A7%A3.jpg)
+
+- bootstrap增加配置文件
+
+![配置](https://github.com/SumerDream/resources/blob/master/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.jpg)
+
+- 运行
+
+![运行](https://github.com/SumerDream/resources/blob/master/%E8%BF%90%E8%A1%8C.jpg)
