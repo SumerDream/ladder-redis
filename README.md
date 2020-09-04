@@ -52,6 +52,14 @@
        
        #密码
        jedis.password=
+5. API使用
+       
+       所有操作都封装成了静态方法, 工具类方式调用
+       
+       jedis操作工具类: * com.murphy.edu.ladder.redis.jedis.JedisUtil.xxx(..);
+       
+       redisson操作工具类: * com.murphy.edu.ladder.redis.redisson.RedissonUtil.xxx(..);
+       
 ## 配置详解(普通Java项目)
 - jedis配置详解
 
