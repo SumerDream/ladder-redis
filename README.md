@@ -12,20 +12,24 @@
 2. 基于maven构建, 在pom文件中引入
 
        <dependency>
- 
          <groupId>com.murphy.edu</groupId>  
-    
          <artifactId>ladder-redis</artifactId>   
-    
          <version>1.0.0.RELEASE</version>    
- 
        </dependency>
        
   3. springboot项目看这里(主要为springboot项目设计,使用最简单)
        
-         在启动类加入注解
-       
+         1)在启动类加入注解
          @EnableLadderRedis
+         2)配置文件中配置redis账号密码等配置
+         #单机模式: standalone 哨兵模式: sentinel 集群模式: cluster
+         ladder.jedis.jedis-mode=standalone
+         #节点,ip:port  多个请用逗号隔开
+         ladder.jedis.jedis-nodes=127.0.0.1:6379
+         #配置使用哪一个redis库 0 ~ 15
+         ladder.jedis.jedis-database=0
+         #密码
+         ladder.jedis.jedis-password=
 
 4. spring项目看这里
 
