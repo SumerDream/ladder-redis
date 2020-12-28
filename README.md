@@ -241,7 +241,7 @@
 
 - 运行
 
-![运行](https://github.com/SumerDream/resources/blob/master/%E8%BF%90%E8%A1%8C.jpg)
+![运行](https://github.com/SumerDream/resources/blob/master/%E8%BF%90%E8%A1%8C.png)
 
 ## 普通Java项目最佳实践
 
@@ -251,4 +251,4 @@
 
 - 运行
 
-![运行](https://github.com/SumerDream/resources/blob/master/%E6%99%AE%E9%80%9A%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C.jpg)
+![运行](https://github.com/SumerDream/resources/blob/master/%E6%99%AE%E9%80%9A%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C.png)
