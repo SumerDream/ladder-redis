@@ -3,9 +3,10 @@ package com.murphy.edu.ladder.redis;
 import java.util.HashMap;
 
 /**
- * @author Dream
- * @ redis模式枚举
- * @date 2019年7月5日13:10:41
+ * @Author Li
+ * @Date 2020-12-28 11:17:14
+ * @Version 1.0.0
+ * run mode
  */
 public enum RedisMode {
 
@@ -16,8 +17,8 @@ public enum RedisMode {
     /******/
     CLUSTER("cluster", "集群模式");
 
-    private String mode;
-    private String desc;
+    private final String mode;
+    private final String desc;
 
     public String getMode() {
         return mode;

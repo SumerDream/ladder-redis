@@ -1,9 +1,10 @@
 package com.murphy.edu.ladder.redis.jedis;
 
 /**
- * @author Dream
- * @ redis读取配置文件
- * @date 2019年7月5日13:10:41
+ * @Author Li
+ * @Date 2020-12-28 11:17:14
+ * @Version 1.0.0
+ * redis config location
  */
 public class JedisConfigLocation {
 
@@ -19,7 +20,7 @@ public class JedisConfigLocation {
      *
      * @param configLocation configLocation
      */
-    public static void setConfigLocation(String configLocation) {
+    public static synchronized void setConfigLocation(String configLocation) {
         if (JedisConfigLocation.configLocation == null) {
             JedisConfigLocation.configLocation = configLocation;
         }

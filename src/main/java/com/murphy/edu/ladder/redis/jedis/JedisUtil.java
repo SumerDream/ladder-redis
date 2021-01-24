@@ -14,9 +14,10 @@ import java.util.Set;
 
 
 /**
- * @author Dream
- * @ 对外提供的redis操作类
- * @date 2019年7月5日13:10:41
+ * @Author Li
+ * @Date 2020-12-28 11:17:14
+ * @Version 1.0.0
+ * 对外开放的操作工具类
  */
 @Slf4j
 public class JedisUtil {
@@ -48,10 +49,105 @@ public class JedisUtil {
     }
 
     /**
-     * 设置String类型缓存, 缓存时间
+     * 设置Byte类型缓存
+     *
+     * @param key   key
+     * @param value value
+     * @author Dream
+     * @date 2019年7月5日13:28:51
+     * return Status code reply
+     */
+    public static String setByte(final byte[] key, final byte[] value) {
+        return commands.setByte(key, value);
+    }
+
+    /**
+     * 设置Byte类型缓存,使用gzip压缩成byte[]存储
+     *
+     * @param key   key
+     * @param value value
+     * @author Dream
+     * @date 2019年7月5日13:28:51
+     * return Status code reply
+     * 注意如果Object value 是byte[] ,则会将字节数据再次进行Gzip压缩,取出的结果就可能不是想要的结果
+     * 一般Object value 是一个Java model
+     */
+    public static String setByteGzip(final byte[] key, final Object value) {
+        return commands.setByteGzip(key, value);
+    }
+
+    /**
+     * 设置Byte类型缓存,设置过期时间
+     *
+     * @param key     key
+     * @param value   value
+     * @param seconds seconds
+     * @author Dream
+     * @date 2019年7月5日13:28:51
+     * return Status code reply
+     */
+    public static String setByte(final byte[] key, final byte[] value, final int seconds) {
+        return commands.setByte(key, value, seconds);
+    }
+
+    /**
+     * 设置Byte类型缓存,使用gzip压缩成byte[]存储,设置过期时间
+     *
+     * @param key     key
+     * @param value   value
+     * @param seconds seconds
+     * @author Dream
+     * @date 2019年7月5日13:28:51
+     * return Status code reply
+     * 不保证原子性
+     */
+    public static String setByteGzip(final byte[] key, final Object value, final int seconds) {
+        return commands.setByteGzip(key, value, seconds);
+    }
+
+    /**
+     * 获取缓存 byte[]
      *
      * @param key key
-     * @param value value
+     * @author Dream
+     * @date 2019年7月5日13:28:51
+     * return byte[] b
+     */
+    public static byte[] getByte(final byte[] key) {
+        return commands.getByte(key);
+    }
+
+    /**
+     * 将字节数据(经过gip压缩)转成Object返回,
+     *
+     * @param key  key
+     * @param type type
+     * @author Dream
+     * @date 2019年7月5日13:28:51
+     * return T t
+     */
+    public static <T> T getGipByte2Object(final byte[] key, TypeReference<T> type) {
+        return commands.getGipByte2Object(key, type);
+    }
+
+    /**
+     * 设置数据过期时间 byte[] key
+     *
+     * @param key     key
+     * @param seconds seconds
+     * @author Dream
+     * @date 2019年7月5日13:28:51
+     * return  t
+     */
+    public static Long expire(final byte[] key, final int seconds) {
+        return commands.expire(key, seconds);
+    }
+
+    /**
+     * 设置String类型缓存
+     *
+     * @param key    key
+     * @param value  value
      * @param expire 小于或等于0时, 表示长期有效
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -63,7 +159,7 @@ public class JedisUtil {
     /**
      * 设置String类型缓存, 缓存时间默认为一天
      *
-     * @param key key
+     * @param key   key
      * @param value value
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -282,7 +378,7 @@ public class JedisUtil {
      * 若域 field 已经存在, 该操作无效
      * 如果 key 不存在, 一个新哈希表被创建并执行 HSETNX 命令
      *
-     * @param key key
+     * @param key   key
      * @param field field
      * @param value value
      * @author Dream
@@ -318,7 +414,7 @@ public class JedisUtil {
     /**
      * 删除hash 中的key
      *
-     * @param key key
+     * @param key   key
      * @param field field
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -341,9 +437,9 @@ public class JedisUtil {
     /**
      * hash类型操作数字
      *
-     * @param key key
+     * @param key   key
      * @param field field
-     * @param num num
+     * @param num   num
      * @author Dream
      * @date 2019年7月5日13:28:51
      */
@@ -354,7 +450,7 @@ public class JedisUtil {
     /**
      * hash获取数字
      *
-     * @param key key
+     * @param key   key
      * @param field field
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -366,9 +462,9 @@ public class JedisUtil {
     /**
      * hash类型操作浮点数
      *
-     * @param key key
+     * @param key   key
      * @param field field
-     * @param amt amt
+     * @param amt   amt
      * @author Dream
      * @date 2019年7月5日13:28:51
      */
@@ -379,7 +475,7 @@ public class JedisUtil {
     /**
      * hash类型获取浮点数
      *
-     * @param key key
+     * @param key   key
      * @param field field
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -391,7 +487,7 @@ public class JedisUtil {
     /**
      * 获取list中的数据
      *
-     * @param key key
+     * @param key   key
      * @param start 开始下标, 0表示第一个元素
      * @param end   结束下标, -1表示最后一个元素, -2表示倒数第二个元素, 以此类推
      * @author Dream
@@ -405,7 +501,7 @@ public class JedisUtil {
      * 从左侧向list类型中插入数据
      * 如果key不存在, 就直接创建list
      *
-     * @param key key
+     * @param key    key
      * @param vaules vaules
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -418,7 +514,7 @@ public class JedisUtil {
      * 从右侧向list类型中插入数据
      * 如果key不存在, 就直接创建list
      *
-     * @param key key
+     * @param key    key
      * @param vaules vaules
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -441,7 +537,7 @@ public class JedisUtil {
     /**
      * 移除list中值为value的元素
      *
-     * @param key key
+     * @param key   key
      * @param value vaule
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -453,7 +549,7 @@ public class JedisUtil {
     /**
      * 向Set类型中插入数据
      *
-     * @param key key
+     * @param key    key
      * @param values vaules
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -487,7 +583,7 @@ public class JedisUtil {
     /**
      * 向set中插入数据
      *
-     * @param key key
+     * @param key    key
      * @param values values
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -499,7 +595,7 @@ public class JedisUtil {
     /**
      * 移除set中值为values的元素
      *
-     * @param key key
+     * @param key    key
      * @param values values
      * @author Dream
      * @date 2019年7月5日13:28:51
@@ -546,7 +642,7 @@ public class JedisUtil {
      * 如果 key 已经存在,  并且值为字符串,  那么这个命令会把 value 追加到原来值（value）的结尾。
      * 如果 key 不存在,  那么它将首先创建一个空字符串的key,  再执行追加操作,  这种情况 APPEND 将类似于 SET 操作。
      *
-     * @param key key
+     * @param key         key
      * @param appendValue appendValue
      * @return 返回append后字符串值（value）的长度, 失败或异常返回0
      */
@@ -569,7 +665,7 @@ public class JedisUtil {
     /**
      * 对key对应的数字做减1操作, 如果key存在, 则将值-1(此时会忽略value), 如果key不存在, 则初始化为value,如果initValue不存在,则初始化为0
      *
-     * @param key key
+     * @param key       key
      * @param initValue 第一位有效
      * @return 返回-1后的值,如果value不是数字类型或者操作异常,则返回-9999
      */
@@ -581,7 +677,7 @@ public class JedisUtil {
      * 对key对应的数字做减 1 操作, 强制初始化成initValue, 注意如果key存在的话, 则会被强制覆盖成给定的initValue
      * 如果initValue不存在,则会被初始化成 0
      *
-     * @param key key
+     * @param key       key
      * @param initValue 第一位有效, 默认为 0
      * @return 返回-1后的值 如果异常 返回-9999
      */
@@ -593,7 +689,7 @@ public class JedisUtil {
      * 对key对应的数字做减value操作。如果key不存在,  那么在操作之前,  这个key对应的值会被置为0。
      * 这个操作最大支持在64位有符号的整型数字。
      *
-     * @param key key
+     * @param key     key
      * @param byValue 第一位有效, 默认为 1
      * @return 如果key不存在,  则创建并赋值为0然后-value返回-value, 如果key存在并且value是数字类型, 则返回-value后的值
      * 如果value不是整型则返回-9999
@@ -606,7 +702,7 @@ public class JedisUtil {
     /**
      * 对key对应的数字做减byValue操作, 如果key存在, 则将值-byValue(此时会忽略initValue),如果byValue不存在则-1 如果key不存在, 则初始化为initValue,
      *
-     * @param key key
+     * @param key       key
      * @param initValue initValue
      * @param byValue   第一位有效, 默认为0
      * @return 返回 -byValue 后的值
@@ -639,7 +735,7 @@ public class JedisUtil {
     /**
      * 设置一个key在某个unixTime时间戳点过期, 如果小于当前时间, 则会立即过期
      *
-     * @param key key
+     * @param key       key
      * @param timestamp timestamp
      * @return 成功返回true, 失败返回false
      */
@@ -651,8 +747,8 @@ public class JedisUtil {
      * 设置一个值, 并设置在unixTime某个时间戳点过期
      * 请注意, value如果非基本数据类型以及非String类型, 请注意序列化
      *
-     * @param key key
-     * @param value value
+     * @param key       key
+     * @param value     value
      * @param timestamp timestamp
      * @return 成功返回true,  失败返回false
      */
@@ -665,7 +761,7 @@ public class JedisUtil {
      * 有效的经度从-180度到180度。
      * 有效的纬度从-85.05112878度到85.05112878度。
      *
-     * @param key key
+     * @param key       key
      * @param longitude 经度
      * @param latitude  纬度
      * @param member    成员
@@ -678,7 +774,7 @@ public class JedisUtil {
     /**
      * 返回一个list<GeoCoordinate>  包含了给定key 中指定member成员的经纬度
      *
-     * @param key key
+     * @param key     key
      * @param members members
      */
     public static List<GeoCoordinate> geoPos(String key, String... members) {
@@ -689,7 +785,7 @@ public class JedisUtil {
      * 返回两个给定位置之间的距离, 单位 米
      * GEODIST 命令在计算距离时会假设地球为完美的球形,   在极限情况下,   这一假设最大会造成 0.5% 的误差
      *
-     * @param key key
+     * @param key     key
      * @param member1 member1
      * @param member2 member2
      */
@@ -705,7 +801,7 @@ public class JedisUtil {
      * mi 表示单位为英里。
      * ft 表示单位为英尺。
      *
-     * @param key key
+     * @param key     key
      * @param member1 member1
      * @param member2 member2
      */
@@ -720,7 +816,7 @@ public class JedisUtil {
      * mi 表示单位为英里。
      * ft 表示单位为英尺。
      *
-     * @param key key
+     * @param key       key
      * @param longitude 经度
      * @param latitude  纬度
      * @param radius    给定范围半径
@@ -737,7 +833,7 @@ public class JedisUtil {
      * mi 表示单位为英里。
      * ft 表示单位为英尺。
      *
-     * @param key key
+     * @param key    key
      * @param member 给定的中心点
      * @param radius 半径
      * @param unit   单位
@@ -749,7 +845,7 @@ public class JedisUtil {
     /**
      * 返回hash里面field是否存在
      *
-     * @param key key
+     * @param key   key
      * @param field field
      * @return 1 存在,  0不存在,  -1 异常
      */
@@ -765,5 +861,14 @@ public class JedisUtil {
      */
     public static int exists(String key) {
         return commands.exists(key);
+    }
+
+    /**
+     * 删除当前redis中所有的key, 单机/哨兵 删除当前库  集群下删除所有数据,此方法慎重使用,尤其强依赖缓存的系统
+     *
+     * @return 删除的key数量
+     */
+    public static long delAllKeys() {
+        return commands.delAllKeys();
     }
 }

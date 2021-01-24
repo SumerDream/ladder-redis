@@ -7,10 +7,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 
 /**
- * @author Dream
- * @version 1.0
- * @description
- * @date 2020/9/3 6:45 下午
+ * @Author Li
+ * @Date 2020-12-28 11:17:14
+ * @Version 1.0.0
+ * init condition
  */
 public class JedisInitCondition implements Condition {
 

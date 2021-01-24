@@ -1,15 +1,14 @@
 package com.murphy.edu.ladder.redis;
 
 import com.murphy.edu.ladder.redis.jedis.JedisConfig;
-import com.murphy.edu.ladder.redis.redisson.RedissonConfig;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
- * @author Dream
- * @version 1.0
- * @description
- * @date 2020/9/3 4:29 下午
+ * @Author Li
+ * @Date 2020-12-28 11:17:14
+ * @Version 1.0.0
+ * autoconfiguration
  */
-@EnableConfigurationProperties({JedisConfig.class, RedissonConfig.class})
+@EnableConfigurationProperties({JedisConfig.class})
 public class EnableAutoRedisConfiguration {
 }

@@ -1,6 +1,7 @@
 package com.murphy.edu.ladder.redis.jedis;
 
 
+import com.murphy.edu.ladder.redis.ExceptionSolution;
 import com.murphy.edu.ladder.redis.RedisMode;
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.*;
@@ -9,34 +10,31 @@ import redis.clients.util.Pool;
 import java.util.*;
 
 /**
- * @author Dream
- * @ jedis初始化中心
- * @date 2019年7月5日13:10:41
+ * @Author Li
+ * @Date 2020-12-28 11:17:14
+ * @Version 1.0.0
+ * init redis
  */
 @Slf4j
 public class JedisCenter {
 
     static RedisMode redisMode = null;
 
+    static boolean exceptionThrow = true;
+
     private static Pool<Jedis> pool = null;
 
     static JedisCluster jedisCluster = null;
 
     static {
-        try {
-            log.info("-----初始化jedis开始-----");
-            if (JedisConfig.getInstance().getJedisMode() == null) {
-                log.info("-----jedis读取配置文件开始-----");
-                initConfig();
-                log.info("-----jedis读取配置文件结束-----");
-            }
-            intPool();
-            log.info("-----jedis连接池配置成功-----");
-        } catch (Exception e) {
-            log.error("-----初始化jedis配置失败-----");
-            log.error(e.getMessage(), e);
+        log.info("-----初始化jedis开始-----");
+        if (JedisConfig.getInstance().getJedisMode() == null) {
+            log.info("-----jedis读取配置文件开始-----");
+            initConfig();
+            log.info("-----jedis读取配置文件结束-----");
         }
-        log.info("-----初始化jedis结束-----");
+        intPool();
+        log.info("-----jedis连接池配置成功-----");
     }
 
 
@@ -78,6 +76,10 @@ public class JedisCenter {
         jedisConfig.setJedisPassword(resource.getString("jedis.password"));
 
         jedisConfig.setJedisDatabase(Integer.parseInt(resource.getString("jedis.database")));
+
+        jedisConfig.setExceptionSolution(resource.getString("jedis.exception.solution"));
+
+        exceptionThrow = ExceptionSolution.THROW.getSolution().equals(jedisConfig.getExceptionSolution());
     }
 
 
@@ -91,6 +93,8 @@ public class JedisCenter {
         JedisConfig jedisConfig = JedisConfig.getInstance();
 
         redisMode = RedisMode.MODE_MAP.get(jedisConfig.getJedisMode());
+
+        exceptionThrow = ExceptionSolution.THROW.getSolution().equals(jedisConfig.getExceptionSolution());
 
         //连接池配置
         JedisPoolConfig config = new JedisPoolConfig();
@@ -113,7 +117,7 @@ public class JedisCenter {
             //单机模式
             case STANDALONE:
                 String[] hostAndPort = HostAndPort.extractParts(jedisConfig.getJedisNodes());
-                pool = new JedisPool(config, hostAndPort[0], Integer.parseInt(hostAndPort[1]), jedisConfig.getJedisSoTimeout(), nullPwd ? null : jedisConfig.getJedisPassword(), redisDatabase, false);
+                pool = new JedisPool(config, hostAndPort[0], "".equals(hostAndPort[1]) ? 6379 : Integer.parseInt(hostAndPort[1]), jedisConfig.getJedisSoTimeout(), nullPwd ? null : jedisConfig.getJedisPassword(), redisDatabase, false);
                 break;
             //哨兵模式
             case SENTINEL:
@@ -133,9 +137,36 @@ public class JedisCenter {
                 }
                 break;
             default:
-                log.error("jedis运行模式配置错误,redisMode : " + redisMode);
+                log.error("-----jedis运行模式配置错误,redisMode : {}-----", redisMode);
                 break;
         }
+        // 注册钩子
+        registerHook();
+    }
+
+    private static void registerHook() {
+        switch (JedisCenter.redisMode) {
+            case STANDALONE:
+            case SENTINEL:
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                    pool.close();
+                    log.info("-----取法乎上-redis连接池关闭成功-----{}", JedisCenter.redisMode.getDesc());
+                }));
+                break;
+            case CLUSTER:
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                    try {
+                        jedisCluster.close();
+                        log.info("-----取法乎上-redis连接池关闭成功-----{}", JedisCenter.redisMode.getDesc());
+                    } catch (Exception e) {
+                        log.warn("-----jedisCluster close error-----{}", JedisCenter.redisMode.getDesc(), e);
+                    }
+                }));
+                break;
+            default:
+                break;
+        }
+
     }
 
     /**
@@ -150,6 +181,9 @@ public class JedisCenter {
             jedis = pool.getResource();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+            if (exceptionThrow) {
+                throw e;
+            }
         }
         return jedis;
     }

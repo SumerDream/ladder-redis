@@ -11,11 +11,26 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author Dream
- * @ redis命令接口
- * @date 2019年7月5日13:10:41
+ * @Author Li
+ * @Date 2020-12-28 11:17:14
+ * @Version 1.0.0
+ * redis commands
  */
 public interface JedisCommands {
+
+    String setByte(final byte[] key, final byte[] value);
+
+    String setByteGzip(final byte[] key, final Object value);
+
+    String setByte(final byte[] key, final byte[] value, final int seconds);
+
+    String setByteGzip(final byte[] key, final Object value, final int seconds);
+
+    byte[] getByte(final byte[] key);
+
+    <T> T getGipByte2Object(final byte[] key, TypeReference<T> type);
+
+    Long expire(final byte[] key, final int seconds);
 
     boolean setString(final String key, final String value, final Integer expire);
 
@@ -134,4 +149,7 @@ public interface JedisCommands {
     int hexists(String key, String field);
 
     int exists(String key);
+
+    long delAllKeys();
+
 }

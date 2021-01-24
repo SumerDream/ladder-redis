@@ -18,56 +18,6 @@
       ]
     },
     {
-      "name": "ladder.redisson.redisson-mode",
-      "values": [
-        {
-          "value": "standalone",
-          "description": "单机模式."
-        },
-        {
-          "value": "sentinel",
-          "description": "哨兵模式."
-        },
-        {
-          "value": "cluster",
-          "description": "集群模式."
-        }
-      ]
-    },
-    {
-      "name": "ladder.redisson.redisson-codec",
-      "values": [
-        {
-          "value": "org.redisson.codec.FstCodec",
-          "description": "FstCodec."
-        },
-        {
-          "value": "org.redisson.client.codec.ByteArrayCodec",
-          "description": "ByteArrayCodec."
-        },
-        {
-          "value": "org.redisson.codec.IonJacksonCodec",
-          "description": "IonJacksonCodec."
-        },
-        {
-          "value": "org.redisson.codec.JsonJacksonCodec",
-          "description": "JsonJacksonCodec."
-        },
-        {
-          "value": "org.redisson.codec.KryoCodec",
-          "description": "KryoCodec."
-        },
-        {
-          "value": "org.redisson.codec.SmileJacksonCodec",
-          "description": "SmileJacksonCodec."
-        },
-        {
-          "value": "org.redisson.client.codec.StringCodec",
-          "description": "StringCodec."
-        }
-      ]
-    },
-    {
       "name": "ladder.jedis.jedis-database",
       "values": [
         {
@@ -137,71 +87,15 @@
       ]
     },
     {
-      "name": "ladder.redisson.redisson-database",
+      "name": "ladder.jedis.exception-solution",
       "values": [
         {
-          "value": 0,
-          "description": "第0个库."
+          "value": "throw",
+          "description": "抛出异常."
         },
         {
-          "value": 1,
-          "description": "第1个库."
-        },
-        {
-          "value": 2,
-          "description": "第2个库."
-        },
-        {
-          "value": 3,
-          "description": "第3个库."
-        },
-        {
-          "value": 4,
-          "description": "第4个库."
-        },
-        {
-          "value": 5,
-          "description": "第5个库."
-        },
-        {
-          "value": 6,
-          "description": "第6个库."
-        },
-        {
-          "value": 7,
-          "description": "第7个库."
-        },
-        {
-          "value": 8,
-          "description": "第8个库."
-        },
-        {
-          "value": 9,
-          "description": "第9个库."
-        },
-        {
-          "value": 10,
-          "description": "第10个库."
-        },
-        {
-          "value": 11,
-          "description": "第11个库."
-        },
-        {
-          "value": 12,
-          "description": "第12个库."
-        },
-        {
-          "value": 13,
-          "description": "第13个库."
-        },
-        {
-          "value": 14,
-          "description": "第14个库."
-        },
-        {
-          "value": 15,
-          "description": "第15个库."
+          "value": "catch",
+          "description": "捕获异常."
         }
       ]
     }
