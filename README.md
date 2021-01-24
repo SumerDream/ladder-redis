@@ -137,7 +137,7 @@
 
 - 基于maven构建, pom文件添加依赖
 
-![依赖](https://github.com/SumerDream/resources/blob/master/%E4%BE%9D%E8%B5%96%E5%AF%BC%E5%85%A5.jpg)
+![依赖](https://github.com/SumerDream/resources/blob/master/%E4%BE%9D%E8%B5%96%E5%AF%BC%E5%85%A5.png)
 
 - 启动类添加注解
 
